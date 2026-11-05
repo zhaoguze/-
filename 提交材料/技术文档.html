@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>西北非遗 · 五省手艺影像志 — 技术文档</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #1a1a1a; background: #fff;
+    font-family: "Songti SC", "SimSun", "Source Han Serif SC", serif;
+    font-size: 10.5pt; line-height: 1.78;
+  }
+  h1, h2, h3, h4 { font-family: "Microsoft YaHei", "SimHei", "PingFang SC", sans-serif; color: #111; }
+  h1 { font-size: 20pt; margin: 0 0 18pt; padding-bottom: 8pt; border-bottom: 2px solid #c0392b; }
+  h2 { font-size: 14pt; margin: 20pt 0 8pt; padding-left: 8pt; border-left: 4px solid #c0392b; }
+  h3 { font-size: 11.5pt; margin: 14pt 0 6pt; }
+  h4 { font-size: 10.5pt; margin: 10pt 0 4pt; color: #444; }
+  p { margin: 0 0 8pt; text-align: justify; }
+  ul, ol { margin: 0 0 9pt; padding-left: 20pt; }
+  li { margin-bottom: 3pt; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 9.5pt; }
+  th, td { border: 1px solid #d5d5d5; padding: 5pt 7pt; text-align: left; vertical-align: top; }
+  th { background: #f4f1ec; font-family: "Microsoft YaHei", sans-serif; font-weight: 600; }
+  code { font-family: Consolas, "Courier New", monospace; background: #f4f4f4; padding: 1pt 3pt; font-size: 9pt; }
+  pre {
+    background: #f7f7f7; border: 1px solid #e3e3e3; border-left: 3px solid #c0392b;
+    padding: 8pt 10pt; font-family: Consolas, "Courier New", monospace;
+    font-size: 8.6pt; line-height: 1.55; overflow: hidden; white-space: pre-wrap;
+    margin: 6pt 0 12pt;
+  }
+  .ch { page-break-before: always; }
+  .nobreak { page-break-inside: avoid; }
+
+  /* 封面 */
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  .cover .seal { width: 62pt; height: 62pt; margin: 0 auto 26pt; background: #c0392b; color: #fff;
+    font-family: "Songti SC", serif; font-size: 34pt; line-height: 62pt; border-radius: 8pt; }
+  .cover h1 { border: 0; font-size: 26pt; margin: 0 0 8pt; padding: 0; letter-spacing: 2pt; }
+  .cover .sub { font-size: 13pt; color: #6b6b6b; letter-spacing: 4pt; margin-bottom: 40pt; }
+  .cover .meta { font-size: 10pt; color: #555; line-height: 2.1; }
+  .cover .rule { width: 60mm; height: 1px; background: #ccc; margin: 22pt auto; }
+
+  /* 目录 */
+  .toc h1 { font-size: 16pt; }
+  .toc ol { list-style: none; padding-left: 0; font-size: 10.5pt; }
+  .toc ol li { margin-bottom: 7pt; display: flex; }
+  .toc .num { width: 30pt; color: #c0392b; font-family: "Microsoft YaHei", sans-serif; }
+  .toc .sub2 { padding-left: 30pt; font-size: 9.6pt; color: #666; margin-bottom: 2pt; display: block; }
+
+  .fig { margin: 8pt 0 12pt; text-align: center; page-break-inside: avoid; }
+  .fig img { width: 88%; border: 1px solid #ddd; }
+  .fig .cap { font-size: 8.6pt; color: #777; margin-top: 4pt; font-family: "Microsoft YaHei", sans-serif; }
+  .note { background: #fbf7f2; border-left: 3px solid #d9a441; padding: 7pt 10pt; font-size: 9.6pt; margin: 8pt 0 12pt; }
+  .kv { font-size: 9.5pt; }
+  .kv td:first-child { width: 26%; background: #fafafa; font-family: "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- ============ 封面 ============ -->
+<div class="cover">
+  <div class="seal">遗</div>
+  <h1>西北非遗 · 五省手艺影像志</h1>
+  <div class="sub">技 术 文 档</div>
+  <div class="rule"></div>
+  <div class="meta">
+    陕西 · 甘肃 · 宁夏 · 青海 · 新疆<br>
+    非物质文化遗产影像志 · 单页应用<br><br>
+    传智杯 · 参赛作品<br>
+    2026 年 11 月
+  </div>
+</div>
+
+<!-- ============ 目录 ============ -->
+<div class="toc ch">
+  <h1>目 录</h1>
+  <ol>
+    <li><span class="num">1</span><span>项目概述</span></li>
+    <li><span class="num"></span><span class="sub2">1.1 项目背景　1.2 项目定位与目标　1.3 数据规模　1.4 交付物</span></li>
+    <li><span class="num">2</span><span>需求分析</span></li>
+    <li><span class="num"></span><span class="sub2">2.1 目标用户与场景　2.2 功能需求　2.3 非功能需求　2.4 同类产品对比</span></li>
+    <li><span class="num">3</span><span>系统架构设计</span></li>
+    <li><span class="num"></span><span class="sub2">3.1 总体架构　3.2 前端架构　3.3 数据层设计　3.4 后端设计　3.5 地图方案与合规</span></li>
+    <li><span class="num">4</span><span>AI 技术方案</span></li>
+    <li><span class="num"></span><span class="sub2">4.1 选型理由　4.2 集成方式　4.3 上下文构造　4.4 优化策略　4.5 边界与失效处理</span></li>
+    <li><span class="num">5</span><span>核心功能实现</span></li>
+    <li><span class="num"></span><span class="sub2">5.1 首页主视觉轮播　5.2 多维筛选　5.3 详情页信息架构　5.4 分布地图　5.5 AI 问答与 Key 绑定　5.6 影像播放降级</span></li>
+    <li><span class="num">6</span><span>测试与部署</span></li>
+    <li><span class="num"></span><span class="sub2">6.1 测试策略　6.2 用例与结果　6.3 性能　6.4 部署方案　6.5 已知问题</span></li>
+    <li><span class="num">7</span><span>创新点说明</span></li>
+    <li><span class="num"></span><span class="sub2">7.1 技术创新点　7.2 应用创新点</span></li>
+    <li><span class="num">8</span><span>总结与展望</span></li>
+    <li><span class="num">A</span><span>附录</span></li>
+    <li><span class="num"></span><span class="sub2">A.1 数据统计　A.2 接口说明　A.3 环境变量</span></li>
+  </ol>
+</div>
+
+<!-- ============ 1 项目概述 ============ -->
+<div class="ch">
+  <h1>1　项目概述</h1>
+
+  <h2>1.1　项目背景</h2>
+  <p>西北五省（区）——陕西、甘肃、宁夏、青海、新疆——拥有逾 300 项国家级非物质文化遗产代表性项目、逾 3000 项省级项目。这些项目的名字大多能在政府公告里查到，但普通人对它们的认知往往停留在「听说过」：</p>
+  <ul>
+    <li><b>信息散</b>：名录在文旅部门公告里，故事在地方志里，照片在新闻图库里，三处互不相通；</li>
+    <li><b>不成体系</b>：按省份能查，按门类能查，但没法「按城市 + 门类 + 关键词」交叉筛；</li>
+    <li><b>没有影像</b>：安塞腰鼓、华阴老腔这类高度依赖「看和听」的技艺，纯文字几乎无法传达；</li>
+    <li><b>地理断裂</b>：想按地域理解分布，却没有一张能点进去的地图。</li>
+  </ul>
+  <p>本项目把上述四件事合并成一件：做一个「可筛选、可阅读、可观看、可提问」的非遗影像志。</p>
+
+  <h2>1.2　项目定位与目标</h2>
+  <p>定位是<b>代表性项目精选导览</b>，而非全量名录。这个选择是主动的，理由在 2.4 节详述。项目目标可拆解为四条：</p>
+  <table>
+    <tr><th style="width:22%">目标</th><th>可验证的达成标准</th></tr>
+    <tr><td>内容密度</td><td>每项非遗配四节结构化正文（历史由来 / 技艺特点 / 传承现状 / 冷知识），平均不低于 500 字</td></tr>
+    <tr><td>视觉可信</td><td>每项至少一张实拍照片，每个省份至少一段现场影像，杜绝「有文字无图」</td></tr>
+    <tr><td>检索效率</td><td>从任意入口（首页 / 筛选 / 地图 / 搜索）到目标条目，最多两次点击</td></tr>
+    <tr><td>可用性兜底</td><td>AI 后端、地图瓦片、本地视频任一失效时，页面仍完整可读，不出现空白或报错</td></tr>
+  </table>
+
+  <h2>1.3　数据规模</h2>
+  <table class="kv">
+    <tr><td>收录项目</td><td><b>67 项</b></td></tr>
+    <tr><td>覆盖省（区）</td><td>5 个（陕西、甘肃、宁夏、青海、新疆）</td></tr>
+    <tr><td>覆盖城市</td><td>37 座（其中 34 座有收录项目，地图仅对后者打点）</td></tr>
+    <tr><td>门类覆盖</td><td>10 类全覆盖（民间文学、传统音乐、传统舞蹈、传统戏剧、曲艺、传统体育游艺与杂技、传统美术、传统技艺、传统医药、民俗）</td></tr>
+    <tr><td>正文字数</td><td>37,667 字，平均 562 字/项</td></tr>
+    <tr><td>图片素材</td><td>67 张（与条目一一对应）</td></tr>
+    <tr><td>影像素材</td><td>10 段，合计约 432 MB</td></tr>
+  </table>
+
+  <h2>1.4　交付物</h2>
+  <table>
+    <tr><th style="width:30%">交付物</th><th>位置 / 说明</th></tr>
+    <tr><td>代码仓库</td><td>GitHub / Gitee 公开仓库，保留完整提交历史</td></tr>
+    <tr><td>可运行站点</td><td>根目录，`node server.js` 或双击 `启动.cmd` 即可运行</td></tr>
+    <tr><td>技术文档</td><td>本文件（PDF，≤30 页）</td></tr>
+    <tr><td>演示视频</td><td>5–8 分钟，1080p 以上，普通话讲解（分镜与讲解词见 `提交材料/演示视频脚本.md`）</td></tr>
+    <tr><td>内容文档</td><td>`docs/` 下 9 篇 Markdown，含 67 项完整档案（约 138 KB）</td></tr>
+  </table>
+</div>
+
+<!-- ============ 2 需求分析 ============ -->
+<div class="ch">
+  <h1>2　需求分析</h1>
+
+  <h2>2.1　目标用户与场景</h2>
+  <table>
+    <tr><th style="width:16%">用户</th><th style="width:26%">典型场景</th><th>核心诉求</th></tr>
+    <tr><td>学生 / 教师</td><td>写作业、备课、做地方文化课题</td><td>快速找到某个项目的来历与特点，文字可直接引用</td></tr>
+    <tr><td>旅行者</td><td>规划西北行程，想「到当地看真的」</td><td>按城市看有什么，最好有影像先睹为快</td></tr>
+    <tr><td>文化爱好者</td><td>周末闲逛式浏览</td><td>视觉冲击 + 冷知识，愿意多翻几页</td></tr>
+    <tr><td>家长</td><td>给孩子做传统文化启蒙</td><td>直观、好懂的篇目，能一起看视频</td></tr>
+    <tr><td>研究者 / 媒体</td><td>快速摸清某地非遗家底</td><td>按省份、门类的分布与数量统计</td></tr>
+  </table>
+
+  <h2>2.2　功能需求</h2>
+  <table>
+    <tr><th style="width:8%">编号</th><th style="width:22%">功能</th><th>说明</th><th style="width:10%">优先级</th></tr>
+    <tr><td>F1</td><td>首页主视觉</td><td>五省（区）主视觉自动轮播，展示省份统计，提供进入入口</td><td>P0</td></tr>
+    <tr><td>F2</td><td>多维筛选</td><td>按省份 / 城市 / 门类 / 关键词组合筛选，支持四种排序</td><td>P0</td></tr>
+    <tr><td>F3</td><td>条目详情</td><td>四节正文 + 配图 + 上下篇导航 + 同类推荐</td><td>P0</td></tr>
+    <tr><td>F4</td><td>分布地图</td><td>内嵌地图，按省配色打点，点击进入该城市列表</td><td>P0</td></tr>
+    <tr><td>F5</td><td>影像播放</td><td>弹层播放本地影像，缺失时回退线上播放器</td><td>P1</td></tr>
+    <tr><td>F6</td><td>AI 问答</td><td>流式对话，知识范围限定站内项目，支持多轮</td><td>P1</td></tr>
+    <tr><td>F7</td><td>Key 绑定</td><td>访客可绑定自己的 API Key，前端校验并本地存储</td><td>P1</td></tr>
+    <tr><td>F8</td><td>全局搜索</td><td>顶部搜索浮层，回车直达结果</td><td>P2</td></tr>
+    <tr><td>F9</td><td>关于页</td><td>非遗定义、十大门类、收录范围与数据边界</td><td>P2</td></tr>
+  </table>
+
+  <h2>2.3　非功能需求</h2>
+  <table>
+    <tr><th style="width:20%">维度</th><th>要求</th><th style="width:34%">实现要点</th></tr>
+    <tr><td>性能</td><td>首屏 3 秒内可见，图片不阻塞首屏</td><td>主视觉预加载、其余图片懒加载、图片压缩至最长边 1600px</td></tr>
+    <tr><td>可用性</td><td>任一外部依赖失效不导致页面空白</td><td>AI 三级降级、地图双路回退、视频本地/线上双源</td></tr>
+    <tr><td>兼容性</td><td>主流桌面与移动浏览器</td><td>不依赖新语法；三档响应式断点（1000/640/520px）</td></tr>
+    <tr><td>无障碍</td><td>键盘可达，动效可关</td><td>跳转正文链接、`:focus-visible` 焦点环、`prefers-reduced-motion`</td></tr>
+    <tr><td>安全</td><td>仓库无明文密钥</td><td>Key 走环境变量或运行时输入，`.env` 已 gitignore</td></tr>
+    <tr><td>合规</td><td>地图数据源合规</td><td>仅用高德瓦片，坐标 GCJ-02 不二次转换，前端零 Key</td></tr>
+  </table>
+
+  <h2>2.4　为什么不做全量名录</h2>
+  <p>这是本项目最重要的一个取舍，需要单独说明。</p>
+  <p>官方名录中西北五省国家级项目逾 300 项、省级逾 3000 项。若追求「全量」，有三种做法，代价都很明确：</p>
+  <table>
+    <tr><th style="width:22%">做法</th><th>问题</th></tr>
+    <tr><td>只列名称的清单</td><td>页面变成 300 行链接，点进去只有一行字。用户得不到任何有效信息，视觉与体验全面崩塌</td></tr>
+    <tr><td>为 300 项各写四节正文</td><td>单人或小组在赛期内无法完成可靠考据；为了填字数必然产生杜撰，反而违背非遗保护的基本态度</td></tr>
+    <tr><td>照搬百科内容</td><td>版权风险 + 同质化，且与「影像志」的定位无关</td></tr>
+  </table>
+  <p>因此项目采取第三种策略：<b>做深不做全，并把边界写在页面上</b>。关于页用一张表明确列出「各省官方项目总数 vs 本站收录数」，并注明数字来源与查询渠道。对一个文化类作品而言，「知道自己收录到哪里」比「假装收录全部」更负责任，也更经得起评委追问。</p>
+</div>
+
+<!-- ============ 3 系统架构 ============ -->
+<div class="ch">
+  <h1>3　系统架构设计</h1>
+
+  <h2>3.1　总体架构</h2>
+  <p>系统采用「纯前端单页应用 + 轻量 Node 后端」的两段式结构，<b>零构建、零第三方运行时依赖</b>。前端负责全部渲染与交互，后端只做两件事：托管静态资源、代理 AI 请求。</p>
+  <pre>
+┌──────────────────────────────────────────────────────────┐
+│                        浏览器                             │
+│  index.html ── style.css ── app.js（哈希路由 + 渲染）       │
+│       │            │              │                       │
+│       │            │              ├─ data.js     数据层     │
+│       │            │              ├─ config.js   运行期配置  │
+│       │            │              ├─ videos.js   影像清单    │
+│       │            │              └─ manifest.js 图片映射    │
+│       │            │                                      │
+│       │            └─ MapLibre GL JS（本地化）+ 高德栅格瓦片 │
+└───────┼───────────────────────────────────────────────────┘
+        │ fetch /api/chat（SSE 流式）
+        │ fetch /api/verify · /api/health
+        ▼
+┌──────────────────────────────────────────────────────────┐
+│  server.js（Node 内置模块，零依赖，127.0.0.1:4190）         │
+│   ├─ 静态托管（支持 HTTP Range，视频可拖动）                 │
+│   ├─ /api/chat    代理 DeepSeek，SSE 透传                  │
+│   ├─ /api/verify  校验访客自带 Key（不产生 token 消耗）       │
+│   └─ /api/health  健康检查                                 │
+└──────────────────────────────────────────────────────────┘
+                         │ curl 子进程
+                         ▼
+                   api.deepseek.com</pre>
+
+  <h2>3.2　前端架构</h2>
+  <h3>3.2.1　路由</h3>
+  <p>使用哈希路由，共 6 个视图。选择哈希而非 History API 的原因是：静态托管即可工作，刷新不会 404，可直接部署到任意静态空间。</p>
+  <table>
+    <tr><th style="width:26%">路由</th><th>视图</th></tr>
+    <tr><td><code>#/</code></td><td>首页（轮播 + 五省 + 精选 + 影像 + AI 入口 + 门类）</td></tr>
+    <tr><td><code>#/discover</code></td><td>发现页，支持 <code>?province=</code> <code>?city=</code> <code>?category=</code> <code>?kw=</code></td></tr>
+    <tr><td><code>#/item/:id</code></td><td>条目详情页</td></tr>
+    <tr><td><code>#/map</code></td><td>分布地图</td></tr>
+    <tr><td><code>#/ask</code></td><td>AI 问答，支持 <code>?q=</code> 自动提问</td></tr>
+    <tr><td><code>#/about</code></td><td>关于与收录范围</td></tr>
+  </table>
+
+  <h3>3.2.2　渲染模型</h3>
+  <p>全部采用「字符串模板 → <code>app.innerHTML</code>」的整体替换式渲染，不引入虚拟 DOM。理由是页面规模小（单页最多 67 张卡片）、交互以路由切换为主，整体替换的开销远低于维护 diff 算法的复杂度。所有用户数据与文案经 <code>esc()</code> 转义后插入，避免 XSS。</p>
+
+  <h3>3.2.3　状态管理</h3>
+  <p>只有三处状态：<code>chatThread</code>（对话历史，内存）、<code>localStorage</code>（访客 Key）、URL 查询参数（筛选条件）。筛选状态放在 URL 里，好处是可分享、可前进后退、刷新不丢。</p>
+
+  <h2>3.3　数据层设计</h2>
+  <p>数据以 JS 常量的形式内联在 <code>data.js</code>，而非 JSON 文件或接口请求。原因：数据量在百条级别，内联可省一次网络往返，且避免 <code>file://</code> 下的跨域限制，使「双击 HTML 也能看」成立。</p>
+  <table>
+    <tr><th style="width:20%">常量</th><th>说明</th></tr>
+    <tr><td><code>PROVINCES</code></td><td>5 个省（区），含配色、描述、下辖城市</td></tr>
+    <tr><td><code>CITIES</code></td><td>由 PROVINCES 扁平化派生，附 <code>provinceId</code></td></tr>
+    <tr><td><code>ITEMS</code></td><td>67 项非遗，含 <code>id / name / cityId / provinceId / level / category / summary / history / feature / inheritor / fact</code></td></tr>
+    <tr><td><code>CATEGORIES</code> / <code>LEVELS</code></td><td>十大门类、五级保护体系</td></tr>
+    <tr><td><code>GEO</code></td><td>37 个城市坐标，<code>[纬度, 经度]</code>，GCJ-02</td></tr>
+  </table>
+  <div class="note"><b>关键约定：</b><code>ITEMS[].cityId</code> 必须存在于 <code>CITIES</code>。开发期用脚本做过一次全量校验，确保无悬空引用；否则地图打点会静默丢失。</div>
+
+  <h2>3.4　后端设计</h2>
+  <p>后端仅 200 余行，使用 Node 内置模块，无任何 npm 包。三个接口 + 静态托管：</p>
+  <table>
+    <tr><th style="width:24%">接口</th><th style="width:10%">方法</th><th>说明</th></tr>
+    <tr><td><code>/api/chat</code></td><td>POST</td><td>接收 messages，以 SSE 流式转发 DeepSeek 增量结果</td></tr>
+    <tr><td><code>/api/verify</code></td><td>POST</td><td>校验访客 Key：请求 <code>/models</code> 验权限，不产生 token 消耗</td></tr>
+    <tr><td><code>/api/health</code></td><td>GET</td><td>返回 <code>{ok, key, demo, model, port}</code>，前端据此显示状态</td></tr>
+    <tr><td>其余路径</td><td>GET</td><td>静态文件托管，<b>支持 HTTP Range</b>，视频可拖动进度条</td></tr>
+  </table>
+  <h3>3.4.1　为什么用 curl 子进程而不是 Node 原生请求</h3>
+  <p>开发期实测：Node 的 <code>https.request</code> 直连 <code>api.deepseek.com</code> 在国内部分网络环境下会抛 <code>socket hang up</code>，而系统 <code>curl</code> 能正常连通（curl 会读取系统代理配置）。因此改为 <code>spawn</code> 一个 curl 子进程转发，把 stdin 作为请求体、stdout 作为响应流直接透传给客户端。</p>
+  <p>这个方案牺牲了一点优雅，换来的是<b>在有系统代理的环境里开箱可用</b>，同时保持零依赖。同时修过两个坑：一是必须为 curl 的 stdin 写入完整 body 再 end，否则服务端会因缺少 Content-Length 拒绝；二是不能监听 <code>req.on('close')</code>（请求体读完就会触发），要改监听 <code>res.on('close')</code> 并判断 <code>writableEnded</code>，否则会误杀上游。</p>
+
+  <h2>3.5　地图方案与合规</h2>
+  <p>地图是本项目技术含量较高、也最容易踩合规红线的一块。</p>
+  <table class="kv">
+    <tr><td>渲染器</td><td>MapLibre GL JS 4.7.1（BSD 许可，本地化引入，不依赖 CDN）</td></tr>
+    <tr><td>底图</td><td>高德栅格瓦片 <code>webrd0{1-4}.is.autonavi.com</code>，<b>免 Key</b></td></tr>
+    <tr><td>坐标系</td><td>GCJ-02；数据层已按此录入，<b>直接上图，不做二次转换</b></td></tr>
+    <tr><td>暗色处理</td><td>高德仅提供亮色瓦片，用 canvas 滤镜 <code>invert(1) hue-rotate(180deg)</code> 转暗；DOM 标记不经过滤镜，故用亮色</td></tr>
+    <tr><td>兜底链路</td><td>瓦片 → 高德官方 JS API（需 Key）→ 腾讯地图 → 页面内提示卡片，逐级回退</td></tr>
+  </table>
+  <div class="note"><b>合规说明：</b>未使用 OpenStreetMap / Google / Mapbox 等非白名单数据源；前端不含任何真实密钥；地图版权归属已在页面标注。二次坐标转换会带来 300–500 米偏移，是地图项目常见的低级错误，本项目在数据层就规避了。</div>
+  <p>取景上还修过一个隐蔽缺陷：<code>fitBounds</code> 的过渡动画会被紧接着触发的 <code>ResizeObserver → map.resize()</code> 打断，导致视野停在偏窄的位置（新增新疆后表现得尤其明显——新疆整块被推到画布外）。修复方式是初始取景不做动画，布局稳定后再补校一次，并记录容器宽度、仅在宽度变化且用户未手动操作时重新取景。</p>
+</div>
+
+<!-- ============ 4 AI 技术方案 ============ -->
+<div class="ch">
+  <h1>4　AI 技术方案</h1>
+  <p>本章按大赛要求，重点说明 AI 技术的<b>选型理由、集成方式与优化策略</b>。</p>
+
+  <h2>4.1　选型理由</h2>
+  <p>项目的 AI 用途非常明确：<b>基于站内 67 项非遗资料做问答</b>。它不需要写代码、不需要长文档分析，只需要「懂中文、听话、便宜、快」。据此对比了几条路线：</p>
+  <table>
+    <tr><th style="width:20%">方案</th><th style="width:16%">结论</th><th>理由</th></tr>
+    <tr><td>DeepSeek（选定）</td><td><b>采用</b></td><td>中文表达自然；OpenAI 兼容协议接入成本低；按 token 计费便宜，适合高频演示；提供 SSE 流式，首字延迟低</td></tr>
+    <tr><td>GPT 系列</td><td>不采用</td><td>国内网络可达性不稳定，评审现场演示风险高；单价偏高</td></tr>
+    <tr><td>国内其他大模型</td><td>备选</td><td>能力相当，但接口各异，切换成本存在；DeepSeek 的兼容协议便于后续替换</td></tr>
+    <tr><td>本地小模型</td><td>不采用</td><td>本机部署需 GPU，评审机器不一定具备；包体膨胀，与「零依赖、双击即用」的定位冲突</td></tr>
+    <tr><td>纯检索（无 LLM）</td><td>不采用</td><td>只能返回片段，无法回答问题；但保留为<b>离线降级方案</b>，见 4.4</td></tr>
+  </table>
+  <p>关键判断是：<b>不追求模型最强，只追求「演示不出事」</b>。因此选型权重里，网络可达性与成本排在能力之前。</p>
+
+  <h2>4.2　集成方式</h2>
+  <h3>4.2.1　三段式链路</h3>
+  <pre>浏览器  ──POST /api/chat（JSON）──▶  server.js  ──curl --data-binary @-──▶  api.deepseek.com
+   ▲                                    │
+   └────── SSE 增量 chunk ◀─────────────┘（逐块透传，不做缓冲）</pre>
+  <p>后端<b>不做任何解析与改写</b>，curl 的 stdout 原样写给客户端。唯一例外是首个数据块：如果开头不是 <code>data:</code> 而是 JSON 错误体，则包装成一条错误事件下发，让前端能显示具体原因（如 401、402）。</p>
+
+  <h3>4.2.2　为什么不上直连</h3>
+  <p>浏览器直连 <code>api.deepseek.com</code> 有两个问题：一是会把 Key 暴露在前端代码与网络面板中；二是跨域与网络环境不可控。走本机后端代理后，Key 只存在于服务端环境变量或内存，符合大赛对密钥管理的要求。</p>
+
+  <h3>4.2.3　流式渲染</h3>
+  <p>前端用 <code>fetch</code> 拿到 <code>ReadableStream</code>，按 <code>\n\n</code> 切分 SSE 事件，解析 <code>data:</code> 行并累加 <code>choices[0].delta.content</code>，每收到一块就更新气泡文本并保持滚动到底。首字可见时间通常在 1 秒内，明显优于等待整段返回。</p>
+
+  <h2>4.3　上下文构造</h2>
+  <p>通用大模型对地方非遗的了解是「有印象但不精确」，容易张冠李戴。项目用一段系统提示词把范围钉死：</p>
+  <pre>你是「西北非遗」网站的讲解助手，服务于陕西、甘肃、宁夏、青海、新疆五省（区）
+非物质文化遗产的科普。只回答与非遗、历史文化、旅行相关的问题；用简体中文，
+简洁分点，控制在 220 字以内；不确定的信息要说明「资料不足」；不要编造传承人姓名。
+本站收录项目：西安鼓乐（西安·传统音乐）：千年古乐活化石；秦腔（西安·传统戏剧）：
+八百里秦川的吼；……（共 67 项，格式为「名称（城市·门类）：一句话概要」）</pre>
+  <p>这段提示词做了四件事：</p>
+  <ul>
+    <li><b>限定领域</b>——只答非遗、历史文化、旅行，避免变成通用聊天框；</li>
+    <li><b>注入站内清单</b>——67 项的名称、城市、门类、概要全部内联，模型不必猜测有哪些项目；</li>
+    <li><b>约束长度</b>——220 字以内、简洁分点，适配气泡的阅读节奏；</li>
+    <li><b>抑制幻觉</b>——明确要求「不确定就说资料不足」「不要编造传承人姓名」。这条很关键：非遗领域最容易出的错就是凭空造出传承人名字。</li>
+  </ul>
+  <p>上下文窗口只携带最近 10 条对话，控制 token 成本，同时保证多轮追问能接上。</p>
+
+  <h2>4.4　优化策略</h2>
+  <h3>4.4.1　三级降级（核心设计）</h3>
+  <p>AI 是本项目最容易「演示翻车」的环节：后端可能没启动、Key 可能过期、网络可能不通。因此设计了三级降级，<b>任何一级失效都不会把错误抛给用户</b>：</p>
+  <table>
+    <tr><th style="width:18%">级别</th><th style="width:26%">触发条件</th><th>表现</th></tr>
+    <tr><td>L1 AI 在线</td><td>后端启动且配置了 Key</td><td>正常流式回答，状态栏显示「AI 已连接 · 模型名」</td></tr>
+    <tr><td>L2 演示模式</td><td>后端启动但无 Key</td><td>返回引导性回答，提示如何配置 Key</td></tr>
+    <tr><td>L3 离线知识库</td><td>后端不可达（连接失败）</td><td>用站内 67 项数据按「项目名 → 城市 → 省区 → 门类 → 推荐」五级规则本地作答，并明确标注「由站内离线知识库作答」</td></tr>
+  </table>
+  <p>L3 的规则匹配虽然简单，但在演示场景中极其有效：即使完全断网，问「推荐三项适合孩子了解的非遗」也能立刻得到结构化的三条答案，页面永远不会出现红色报错。</p>
+
+  <h3>4.4.2　访客自带 Key</h3>
+  <p>不是每个评审都愿意等你在服务器上配 Key。因此做了「访客自带 Key」：页面底部可绑定自己的 DeepSeek Key，<b>优先级高于服务器配置</b>。</p>
+  <table class="kv">
+    <tr><td>存储</td><td>仅本机浏览器 <code>localStorage</code>，不上传服务器</td></tr>
+    <tr><td>校验</td><td><code>POST /api/verify</code>，请求 <code>/models</code> 验证权限，<b>不产生 token 消耗</b></td></tr>
+    <tr><td>传递</td><td>聊天请求携带 <code>X-DeepSeek-Key</code> 请求头，由本机后端代转发</td></tr>
+    <tr><td>错误分级</td><td>401 → Key 无效或已吊销；402 → 余额不足；429 → 请求过于频繁</td></tr>
+  </table>
+
+  <h3>4.4.3　成本与体验的平衡</h3>
+  <ul>
+    <li>系统提示词约 2,800 字符，单轮对话成本可控；上下文只带最近 10 条，避免无限增长；</li>
+    <li>校验走 <code>/models</code> 而非真实对话，避免「点一次校验就花钱」；</li>
+    <li>流式输出让首字更早出现，主观等待时间显著下降；</li>
+    <li>后端设置 180 秒超时，异常时主动结束并下发错误事件，避免前端一直转圈。</li>
+  </ul>
+
+  <h2>4.5　边界与失效处理</h2>
+  <table>
+    <tr><th style="width:26%">情形</th><th>处理</th></tr>
+    <tr><td>用户问站外内容（如京剧、外国非遗）</td><td>系统提示词限定领域，超出范围时模型会说明「本站未收录」</td></tr>
+    <tr><td>Key 失效 / 欠费</td><td>后端把上游错误包装成 SSE 事件，前端显示具体原因并提示重新绑定</td></tr>
+    <tr><td>后端未启动</td><td>L3 离线知识库兜底，状态栏显示当前模式</td></tr>
+    <tr><td>本地规则也匹配不到</td><td>展示一张说明卡，附「重试这一次提问」按钮，而非报错文本</td></tr>
+    <tr><td>模型输出编造内容</td><td>提示词层面禁止编造传承人；页面显著位置标注「回答由 AI 生成，仅供参考」</td></tr>
+  </table>
+</div>
+
+<!-- ============ 5 核心功能实现 ============ -->
+<div class="ch">
+  <h1>5　核心功能实现</h1>
+
+  <h2>5.1　首页主视觉轮播</h2>
+  <p>首页采用「全屏主视觉 + 玻璃质感文字层 + 右侧缩略图条」的版式，五省（区）主视觉每 6 秒自动切换。</p>
+  <p>实现要点：</p>
+  <ul>
+    <li>五张主视觉以 <code>background-image</code> 叠放，通过 <code>.on</code> 类切换透明度，避免图片重新加载造成的闪烁；</li>
+    <li>进度条用 CSS 动画 <code>heroProg 6000ms linear</code>，切换时重置动画（<code>animation:none</code> + 强制重排）以同步计时；</li>
+    <li>鼠标移入暂停轮播并暂停进度条，移出恢复；点击缩略图立即跳转并重启计时；</li>
+    <li>尊重 <code>prefers-reduced-motion</code>，系统开启减少动效时不做自动轮播；</li>
+    <li>文案切换时对文字层加 <code>swap</code> 类做轻微的位移淡入，形成「换气」感。</li>
+  </ul>
+
+  <h2>5.2　多维筛选</h2>
+  <p>发现页支持「省份 × 城市 × 门类 × 关键词」四维组合，以及默认 / 保护级别 / 城市 / 名称四种排序。筛选状态全部写入 URL 查询参数：</p>
+  <pre>#/discover?province=xinjiang&category=传统技艺&kw=绸</pre>
+  <p>这样做的好处是：结果页可分享、浏览器前进后退自然生效、刷新不丢筛选条件。筛选逻辑本身是一次数组 <code>filter</code> 加一次 <code>sort</code>，在 67 条数据上无性能压力，因此不做索引与缓存。</p>
+
+  <h2>5.3　详情页信息架构</h2>
+  <p>每一项的详情页固定为四节，用「壹 / 贰 / 叁 / 肆」编号，形成阅读节奏：</p>
+  <table>
+    <tr><th style="width:14%">序号</th><th style="width:22%">标题</th><th>内容定位</th></tr>
+    <tr><td>壹</td><td>历史由来</td><td>源流、年代、名录批次、传播路径</td></tr>
+    <tr><td>贰</td><td>技艺特点</td><td>工艺步骤、动作要领、曲牌板式等「怎么做」</td></tr>
+    <tr><td>叁</td><td>传承现状</td><td>谁在传、在哪里传、面临什么问题</td></tr>
+    <tr><td>肆</td><td>冷知识</td><td>一条有画面感、能记住的细节</td></tr>
+  </table>
+  <p>页面顶部为大图与标签（级别 / 门类 / 省份），底部为上下篇导航与「同乡·同类」推荐，保证用户能沿着主题继续读下去，而不是读完就跳出。</p>
+
+  <div class="fig">
+    <img src="img/shot-item.png" alt="详情页">
+    <div class="cap">图 5-1　详情页：大图 + 标签 + 四节正文</div>
+  </div>
+
+  <h2>5.4　分布地图</h2>
+  <p>地图采用「大图 + 右侧城市索引」的两栏布局（2:1）。核心逻辑：</p>
+  <ul>
+    <li>只对<b>确实收录了项目</b>的城市打点。早期版本给全部 37 座城市打点，结果吐鲁番、阿克苏、阿勒泰点进去是空列表——现已改为按 <code>itemCount &gt; 0</code> 过滤，当前 34 个点位；</li>
+    <li>点位按省份配色，与图例、右侧索引一致；点击点位跳到该城市的筛选结果；</li>
+    <li>省名以 DOM 标记叠加在地图上，不参与 canvas 滤镜，因此在暗色底图上依然清晰；</li>
+    <li>容器在布局完成前可能是 0×0，此时 <code>fitBounds</code> 会被静默忽略，因此取景放在 <code>requestAnimationFrame</code> 里等有尺寸再执行。</li>
+  </ul>
+
+  <h2>5.5　AI 问答与 Key 绑定</h2>
+  <p>问答页由三部分组成：消息流、预设问题、输入区。输入区下方是一行状态指示（绿点 + 当前模式）与「绑定我的 API Key」入口。</p>
+  <p>Key 绑定的交互流程：</p>
+  <pre>点击「绑定我的 API Key」
+   → 展开面板（密码框 + 模型选择）
+   → 点「校验并保存」
+   → POST /api/verify（只查 /models，不消耗 token）
+   → 成功：写入 localStorage，状态栏变为「AI 已连接 · 你的 Key」，面板提示已保存
+   → 失败：就地显示原因（无效 / 余额不足 / 限流 / 网络不通），不保存</pre>
+  <p>「先验后存」是刻意的：避免用户存了一个错误 Key，之后每次提问都失败却不知道问题出在哪。</p>
+
+  <div class="fig">
+    <img src="img/shot-ask.png" alt="AI 问答页">
+    <div class="cap">图 5-2　AI 问答页：状态指示与 Key 绑定入口</div>
+  </div>
+
+  <h2>5.6　影像播放降级</h2>
+  <p>10 段影像全部本地化到 <code>assets/video/</code>，弹层优先播放本地文件。若文件缺失或损坏，监听 <code>&lt;video&gt;</code> 的 <code>error</code> 事件，一次性回退到哔哩哔哩 iframe 播放器（BV 号保存在 <code>videos.js</code> 中）。</p>
+  <p>此外，<code>server.js</code> 的静态托管实现了 HTTP Range：返回 <code>206 Partial Content</code> 与 <code>Content-Range</code>。没有 Range 支持时，浏览器无法拖动进度条，部分浏览器甚至会直接拒绝播放。</p>
+</div>
+
+<!-- ============ 6 测试与部署 ============ -->
+<div class="ch">
+  <h1>6　测试与部署</h1>
+
+  <h2>6.1　测试策略</h2>
+  <p>项目没有引入测试框架（与「零依赖」定位一致），采用三层手工与脚本化验证：</p>
+  <table>
+    <tr><th style="width:22%">层级</th><th>方法</th><th style="width:30%">覆盖内容</th></tr>
+    <tr><td>静态检查</td><td><code>node --check</code> 逐个校验 7 个 JS 文件</td><td>语法错误、括号不匹配</td></tr>
+    <tr><td>数据完整性</td><td>Node 脚本加载 <code>data.js</code>，断言关系</td><td>ID 唯一、<code>cityId</code> 有效、坐标全覆盖、图片/视频映射完整</td></tr>
+    <tr><td>端到端</td><td>无头 Edge 渲染 + DOM 断言 + 截图目视</td><td>各页面渲染、点位数量、状态栏文案、图片是否真实加载</td></tr>
+  </table>
+
+  <h2>6.2　用例与结果</h2>
+  <table>
+    <tr><th style="width:8%">编号</th><th style="width:34%">用例</th><th style="width:16%">预期</th><th>结果</th></tr>
+    <tr><td>T1</td><td>67 项数据的 <code>cityId</code> 是否都存在于 <code>CITIES</code></td><td>无悬空</td><td>通过</td></tr>
+    <tr><td>T2</td><td>37 个城市坐标覆盖率</td><td>100%</td><td>通过（37/37）</td></tr>
+    <tr><td>T3</td><td>67 项是否都有配图映射</td><td>全部命中</td><td>通过（67/67）</td></tr>
+    <tr><td>T4</td><td>十大门类是否都有条目</td><td>全覆盖</td><td>通过（10/10）</td></tr>
+    <tr><td>T5</td><td>地图点位数量</td><td>= 有收录的城市数</td><td>通过（34 = 34）</td></tr>
+    <tr><td>T6</td><td>零收录城市是否从地图与索引中消失</td><td>不出现</td><td>通过（吐鲁番/阿克苏/阿勒泰出现 0 次）</td></tr>
+    <tr><td>T7</td><td>无 <code>.env</code> 启动后端</td><td>进入演示模式</td><td>通过（<code>demo:true</code>）</td></tr>
+    <tr><td>T8</td><td>无效 Key 校验</td><td>返回明确原因</td><td>通过（「Key 无效或已被吊销」）</td></tr>
+    <tr><td>T9</td><td>格式错误 Key</td><td>前端拦截</td><td>通过（「应以 sk- 开头」）</td></tr>
+    <tr><td>T10</td><td>带自定义 Key 头发起对话</td><td>返回真实内容</td><td>通过</td></tr>
+    <tr><td>T11</td><td>断开后端后提问</td><td>离线知识库作答</td><td>通过（返回结构化三条推荐）</td></tr>
+    <tr><td>T12</td><td>视频 Range 请求</td><td>206 Partial Content</td><td>通过（<code>bytes 0-1023/17014950</code>）</td></tr>
+    <tr><td>T13</td><td>移动端 375px 宽度</td><td>无横向滚动、卡片单列</td><td>通过</td></tr>
+  </table>
+
+  <h2>6.3　性能</h2>
+  <table class="kv">
+    <tr><td>首屏资源总量</td><td>HTML + CSS + JS + 首张主视觉 ≈ 1.1 MB（不含影像）</td></tr>
+    <tr><td>图片优化</td><td>9 张超 800KB 的大图经压缩后由 28.4 MB 降至 14.7 MB（-48%），最长边统一 1600px</td></tr>
+    <tr><td>图片加载</td><td>全部 <code>loading="lazy"</code> + <code>decoding="async"</code>，主视觉用 <code>preload</code> 提前加载</td></tr>
+    <tr><td>第三方请求</td><td>仅地图瓦片；字体全部系统字体，无外链</td></tr>
+    <tr><td>AI 首字延迟</td><td>流式输出，通常 1 秒内出现首字</td></tr>
+  </table>
+
+  <h2>6.4　部署方案</h2>
+  <p>三种部署形态，按使用场景选择：</p>
+  <table>
+    <tr><th style="width:24%">形态</th><th>命令 / 操作</th><th style="width:26%">AI 可用性</th></tr>
+    <tr><td>本地全功能</td><td><code>node server.js</code> 或双击 <code>启动.cmd</code></td><td>可用（需 Key 或访客自带）</td></tr>
+    <tr><td>纯静态托管</td><td>把站点文件上传到任意静态空间</td><td>不可用，自动降级为 L3 离线知识库</td></tr>
+    <tr><td>云主机常驻</td><td><code>pm2 start server.js</code> 或 systemd 托管</td><td>可用，需在 `.env` 配置 Key</td></tr>
+  </table>
+  <div class="note"><b>在线演示（加分项）建议：</b>使用云主机部署 <code>server.js</code>（需开放 4190 端口或反代到 80/443），并<b>不要</b>在服务器 `.env` 中配置自己的 Key——改为在页面提示访客「绑定自己的 API Key」，既符合「API 密钥不得出现在公开仓库」的要求，也避免了公网 Key 被刷的风险。</div>
+
+  <h2>6.5　已知问题</h2>
+  <table>
+    <tr><th style="width:32%">问题</th><th>说明与影响</th></tr>
+    <tr><td>无头浏览器下地图偶发不渲染</td><td>无头环境 WebGL 未初始化时，8~15 秒后触发兜底卡片。真实浏览器不受影响；已把兜底超时从 8 秒放宽到 15 秒以降低误判</td></tr>
+    <tr><td>视频体积偏大</td><td>10 段共约 432 MB，其中秦腔单条 158 MB。未做重编码，避免损失画质；如需控制包体可统一压至 720p</td></tr>
+    <tr><td>部分配图为公开网络素材</td><td>含少量水印（如 ic photo）。正式公开发布前应替换为授权素材，页面页脚已声明</td></tr>
+    <tr><td>收录非全量</td><td>设计选择，已在关于页明确标注口径，见 2.4 节</td></tr>
+  </table>
+</div>
+
+<!-- ============ 7 创新点 ============ -->
+<div class="ch">
+  <h1>7　创新点说明</h1>
+
+  <h2>7.1　技术创新点</h2>
+
+  <h3>创新点 1　AI 三级降级，让「问答」永不报错</h3>
+  <p><b>问题：</b>依赖大模型的应用最容易在演示环节翻车——后端没启动、Key 过期、网络不通，任何一种都足以让页面出现一段红色报错，直接毁掉第一印象。</p>
+  <p><b>做法：</b>把「AI 在线 / 演示模式 / 离线知识库」做成三级降级。第三级不是简单的报错文案，而是一套基于站内 67 项数据的本地检索规则，按「项目名 → 城市 → 省区 → 门类 → 推荐」五级匹配，返回结构化答案，并明确标注来源。</p>
+  <p><b>价值：</b>即使完全断网，AI 问答区仍然可用且诚实；演示现场不需要祈祷网络良好。</p>
+
+  <h3>创新点 2　访客自带 Key，把「配置」变成产品能力</h3>
+  <p><b>问题：</b>把 Key 写进服务器，作品一旦公开就意味着自己的额度被别人消耗；不写，评审又看不到 AI 效果。</p>
+  <p><b>做法：</b>在前端做 Key 绑定面板。访客填入自己的 Key → 调用 <code>/api/verify</code>（只查模型列表，<b>不产生 token 消耗</b>）→ 校验通过才写入 <code>localStorage</code> → 后续请求通过 <code>X-DeepSeek-Key</code> 头交给本机后端代转发。</p>
+  <p><b>价值：</b>公开仓库零密钥、公开部署不烧作者额度、评审仍能完整体验；同时把错误分级做到位（无效 / 欠费 / 限流），用户知道该修什么。</p>
+
+  <h3>创新点 3　地图「只标有的」，并修掉一个隐蔽的取景缺陷</h3>
+  <p><b>做法一：</b>点位不再按「行政区全量」打点，而是按「是否真的收录了项目」过滤。地图上每一个亮点点进去都有内容，不存在「点了是空的」的挫败感。</p>
+  <p><b>做法二：</b>修复 <code>fitBounds</code> 动画被 <code>ResizeObserver → map.resize()</code> 打断导致视野偏窄的问题（表现为新增省份后，最西侧区域被推到画布之外）。修复后五省完整可见，且用户手动缩放后不再被自动重置。</p>
+  <p><b>价值：</b>地图从「装饰」变成「可信的导航」。</p>
+
+  <h2>7.2　应用创新点</h2>
+
+  <h3>创新点 4　把「数据边界」写进页面</h3>
+  <p>多数文化类展示项目倾向于暗示自己「收录完整」。本项目反其道而行：关于页用一张表明确写出各省国家级项目的官方总数、本站收录数与覆盖城市数，并注明数字来源与查询渠道。</p>
+  <p>这不是自曝其短，而是把「精选」变成一个可被验证的承诺——用户可以清楚地知道这里能看到什么、看不到什么，从而信任看到的部分。</p>
+
+  <h3>创新点 5　「四节式」正文结构，统一 67 项的阅读体验</h3>
+  <p>所有条目强制采用「历史由来 / 技艺特点 / 传承现状 / 冷知识」四节结构，用「壹贰叁肆」编号。无论读者点开哪一项，都能在同样的位置找到同样的信息。这解决了同类项目常见的问题：有的条目洋洋千言，有的只有一行简介，阅读体验割裂。</p>
+  <p>其中「冷知识」一节是刻意设计的钩子——每项都给一条有画面感的细节（例如：芯子上的孩子凌晨就被绑上架，一整天不能下地，家长反而觉得是福气），用于提升停留时长与分享意愿。</p>
+
+  <h3>创新点 6　影像与文字互为注解</h3>
+  <p>对安塞腰鼓、华阴老腔、达瓦孜这类高度依赖「看和听」的技艺，纯文字几乎无法传达。项目为其中 10 项配了现场影像，并与文字形成互补：文字说明「为什么这样」，影像展示「到底什么样」。影像全部本地化，缺失时自动回退线上播放器，保证有网没网都能看。</p>
+</div>
+
+<!-- ============ 8 总结 ============ -->
+<div class="ch">
+  <h1>8　总结与展望</h1>
+
+  <h2>8.1　完成情况</h2>
+  <p>项目完成了既定目标：</p>
+  <ul>
+    <li>收录 67 项非遗，覆盖五省（区）34 座城市、全部十大门类，正文 37,667 字，配 67 张照片与 10 段影像；</li>
+    <li>实现筛选、检索、详情、地图、问答、影像六条完整链路；</li>
+    <li>零构建、零第三方运行时依赖，克隆即可运行，无环境门槛；</li>
+    <li>AI 具备三级降级与访客自带 Key 能力，演示环节不易翻车。</li>
+  </ul>
+
+  <h2>8.2　过程中的关键取舍</h2>
+  <table>
+    <tr><th style="width:26%">取舍</th><th>选择与理由</th></tr>
+    <tr><td>做全 vs 做深</td><td>选择做深。300 项各写四节正文无法保证不出错，宁可 67 项条条可读，并把边界写在页面上</td></tr>
+    <tr><td>框架 vs 原生</td><td>选择原生。单页体量下框架带来的收益小于其构建与学习成本</td></tr>
+    <tr><td>模型能力 vs 可达性</td><td>选择可达性。评审现场网络不可控，稳定可演示比「最强模型」更重要</td></tr>
+    <tr><td>视觉冲击 vs 可读性</td><td>两者兼顾：用大图建立氛围，但正文严格控制在 76ch 行宽、1.9 行高，保证长文可读</td></tr>
+  </table>
+
+  <h2>8.3　不足</h2>
+  <ul>
+    <li><b>覆盖仍不完整</b>：67 项之于逾 300 项国家级项目，仍是抽样；</li>
+    <li><b>考据深度有限</b>：正文为编辑整理，未逐条追溯一手文献，传承人信息一律回避以免出错；</li>
+    <li><b>素材授权待解决</b>：图片与影像来自公开网络，正式公开发布前需替换；</li>
+    <li><b>缺少后台</b>：新增条目需改 <code>data.js</code>，非技术人员无法维护。</li>
+  </ul>
+
+  <h2>8.4　展望</h2>
+  <table>
+    <tr><th style="width:26%">方向</th><th>具体设想</th></tr>
+    <tr><td>内容扩充</td><td>按批次持续补录，每批 10 项，配套核验与配图流程；最终目标覆盖五省国家级项目的 30% 以上</td></tr>
+    <tr><td>接入官方数据</td><td>从中国非物质文化遗产网同步名录字段，把「名称 / 批次 / 类别 / 申报地区」做成结构化数据，减少人工录入误差</td></tr>
+    <tr><td>内容管理</td><td>增加一个轻量后台（或 Markdown 驱动的构建脚本），让非技术人员也能录入</td></tr>
+    <tr><td>AI 能力增强</td><td>引入向量检索做 RAG，把 67 项正文切片入库，让回答能引用具体段落而非仅有概要</td></tr>
+    <tr><td>多模态</td><td>探索「上传一张照片，识别是哪类非遗」的视觉检索玩法</td></tr>
+    <tr><td>无障碍与多语</td><td>补充英文版，便于对外传播；完善屏幕阅读器支持</td></tr>
+  </table>
+</div>
+
+<!-- ============ 附录 ============ -->
+<div class="ch">
+  <h1>附录</h1>
+
+  <h2>A.1　数据统计</h2>
+  <table>
+    <tr><th style="width:24%">省（区）</th><th>收录项目</th><th>覆盖城市</th><th>覆盖门类</th></tr>
+    <tr><td>陕西省</td><td>26 项</td><td>10 座</td><td>7 类</td></tr>
+    <tr><td>甘肃省</td><td>11 项</td><td>8 座</td><td>7 类</td></tr>
+    <tr><td>宁夏回族自治区</td><td>7 项</td><td>4 座</td><td>6 类</td></tr>
+    <tr><td>青海省</td><td>9 项</td><td>4 座</td><td>6 类</td></tr>
+    <tr><td>新疆维吾尔自治区</td><td>14 项</td><td>8 座</td><td>10 类</td></tr>
+    <tr><td><b>合计</b></td><td><b>67 项</b></td><td><b>34 座</b></td><td><b>10 类</b></td></tr>
+  </table>
+
+  <h2>A.2　接口说明</h2>
+  <h3>A.2.1　POST /api/chat</h3>
+  <pre>请求头：
+  Content-Type: application/json
+  X-DeepSeek-Key: sk-xxx        （可选，访客自带 Key）
+  X-DeepSeek-Model: deepseek-chat（可选）
+
+请求体：
+  { "messages": [ { "role": "system|user|assistant", "content": "..." } ] }
+
+响应：
+  Content-Type: text/event-stream
+  data: {"choices":[{"delta":{"content":"…"}}]}
+  data: [DONE]</pre>
+
+  <h3>A.2.2　POST /api/verify</h3>
+  <pre>请求体：{ "key": "sk-xxx" }
+响应：  { "ok": true,  "message": "Key 有效" }
+        { "ok": false, "message": "Key 无效或已被吊销" }</pre>
+
+  <h3>A.2.3　GET /api/health</h3>
+  <pre>{ "ok": true, "key": true, "demo": false, "model": "deepseek-chat", "port": 4190 }</pre>
+
+  <h2>A.3　环境变量</h2>
+  <table>
+    <tr><th style="width:26%">变量</th><th style="width:10%">必填</th><th style="width:26%">默认值</th><th>说明</th></tr>
+    <tr><td><code>DEEPSEEK_API_KEY</code></td><td>否</td><td>空</td><td>留空则进入演示模式</td></tr>
+    <tr><td><code>DEEPSEEK_MODEL</code></td><td>否</td><td>deepseek-chat</td><td>可选 deepseek-reasoner</td></tr>
+    <tr><td><code>DEEPSEEK_API_BASE</code></td><td>否</td><td>api.deepseek.com</td><td>一般无需修改</td></tr>
+    <tr><td><code>PORT</code></td><td>否</td><td>4190</td><td>后端监听端口</td></tr>
+    <tr><td><code>CURL_BIN</code></td><td>否</td><td>系统 curl</td><td>代理转发所用 curl 路径</td></tr>
+  </table>
+
+  <p style="margin-top:18pt;font-size:9pt;color:#888;">—— 文档完 ——</p>
+</div>
+
+</body>
+</html>
