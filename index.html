@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>西北非遗 · 五省手艺影像志</title>
+<meta name="description" content="陕西、甘肃、宁夏、青海、新疆——西北五省（区）非物质文化遗产影像志。真实照片、真实影像，按省份与门类发现手艺。">
+<meta name="keywords" content="非物质文化遗产,非遗,陕西,甘肃,宁夏,青海,新疆,西北,安塞腰鼓,秦腔,华县皮影,热贡唐卡,十二木卡姆,达瓦孜,艾德莱斯,花儿,影像志">
+<meta name="author" content="西北非遗 · 五省手艺影像志">
+<meta name="theme-color" content="#0c0b09">
+<meta name="format-detection" content="telephone=no">
+<!-- Open Graph / 社交分享 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="西北非遗 · 五省手艺影像志">
+<meta property="og:description" content="陕西、甘肃、宁夏、青海、新疆——西北五省（区）非物质文化遗产影像志。真实照片、真实影像，按省份与门类发现手艺。">
+<meta property="og:site_name" content="西北非遗">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23C0392B'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23F7F3EC' font-family='serif'%3E%E9%81%97%3C/text%3E%3C/svg%3E">
+<!-- 首屏主视觉预加载，降低 LCP -->
+<link rel="preload" as="image" href="assets/img/scene_shaanxi.jpg">
+<!-- 腾讯地图 Key 代理（WorkBuddy 预览环境会自动替换占位符，前端不出现真实 Key） -->
+<script>window._TMapSecurityConfig={serviceHost:"http://127.0.0.1:__WB_HTTP_PORT__/_TMapService/_wbt/__WB_TMAP_SECRET__"};</script>
+<link rel="stylesheet" href="style.css">
+<!-- 内嵌地图：MapLibre（本地化，避免 CDN/file:// 跨域问题）+ 高德栅格瓦片（免 Key） -->
+<link rel="stylesheet" href="assets/vendor/maplibre/maplibre-gl.css">
+</head>
+<body>
+
+<a class="skip-link" href="#app">跳到主要内容</a>
+
+<div class="scroll-line" aria-hidden="true"><i id="scrollFill"></i></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#/">
+    <span class="brand-mark">遗</span>
+    <span class="brand-name">西北非遗</span>
+  </a>
+  <nav class="nav">
+    <a href="#/" data-nav="home">首页</a>
+    <a href="#/discover" data-nav="discover">五省非遗</a>
+    <a href="#/map" data-nav="map">分布地图</a>
+    <a href="#/ask" data-nav="ask">AI 问答</a>
+    <a href="#/about" data-nav="about">关于</a>
+  </nav>
+  <button class="nav-search" id="navSearch" aria-label="搜索">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+  </button>
+</header>
+
+<div class="search-layer" id="searchLayer" aria-hidden="true">
+  <form class="search-form" id="searchForm">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+    <input id="searchInput" type="search" placeholder="搜非遗、城市、门类…" autocomplete="off">
+    <button type="submit">搜索</button>
+  </form>
+  <p class="search-hint">回车搜索 · Esc 关闭</p>
+</div>
+
+<main id="app"></main>
+
+<noscript>
+  <div class="noscript-tip">
+    <h2>需要启用 JavaScript</h2>
+    <p>本站为单页应用，内容由脚本动态渲染。请在浏览器中启用 JavaScript 后重新加载。</p>
+  </div>
+</noscript>
+
+<div class="vmodal" id="vmodal" aria-hidden="true">
+  <div class="vmodal-box">
+    <button class="vmodal-x" id="vmodalX" aria-label="关闭">×</button>
+    <div class="vmodal-frame" id="vmodalFrame"></div>
+    <a class="vmodal-link" id="vmodalLink" href="#" target="_blank" rel="noopener">若无法播放，在哔哩哔哩打开 ↗</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="foot-in">
+    <span class="foot-brand">西北非遗 · 五省手艺影像志</span>
+    <span class="foot-note">站内文字为示例内容；照片与影像来自公开网络（360 图搜 / 哔哩哔哩），仅用于非商业展示原型，正式上线前需替换为授权素材。</span>
+  </div>
+</footer>
+
+<script src="assets/img/manifest.js"></script>
+<script src="assets/videos.js"></script>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="assets/vendor/maplibre/maplibre-gl.js"></script>
+<script src="assets/map-tiles.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
