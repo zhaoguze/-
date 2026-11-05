@@ -1,0 +1,25 @@
+{
+  "name": "northwest-ich",
+  "version": "1.0.0",
+  "private": true,
+  "description": "西北非遗 · 五省手艺影像志 —— 聚焦陕西、甘肃、宁夏、青海、新疆五省（区）非物质文化遗产的单页影像志，含内嵌分布地图与 AI 问答助手",
+  "keywords": [
+    "非物质文化遗产",
+    "非遗",
+    "西北",
+    "单页应用",
+    "DeepSeek",
+    "MapLibre"
+  ],
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "license": "MIT"
+}

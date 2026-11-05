@@ -1,0 +1,27 @@
+# 本地密钥，切勿提交
+.env
+.env.local
+
+# 项目工作数据（非提交内容）
+.workbuddy/
+
+# 影像素材：单文件超 100MB 上限且总体积过大，改由提交包提供
+# 说明见 assets/video/README.md
+assets/video/*.mp4
+
+# 依赖与构建产物
+node_modules/
+dist/
+.tmp/
+.tmpimg/
+
+# 临时文件与系统文件
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
