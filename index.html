@@ -22,8 +22,28 @@
 <link rel="stylesheet" href="style.css">
 <!-- 内嵌地图：MapLibre（本地化，避免 CDN/file:// 跨域问题）+ 高德栅格瓦片（免 Key） -->
 <link rel="stylesheet" href="assets/vendor/maplibre/maplibre-gl.css">
+<noscript><style>.intro{display:none!important}</style></noscript>
 </head>
 <body>
+
+<!-- 开场动效：印章落款 → 标题逐字 → 五省列阵 → 幕门拉开 -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-panel intro-panel-l"></div>
+  <div class="intro-panel intro-panel-r"></div>
+  <div class="intro-glow"></div>
+  <div class="intro-grain"></div>
+  <div class="intro-seam"></div>
+  <div class="intro-inner">
+    <div class="intro-seal"><span>遗</span></div>
+    <h1 class="intro-title"><span style="--i:0">西</span><span style="--i:1">北</span><span style="--i:2">非</span><span style="--i:3">遗</span></h1>
+    <p class="intro-sub">五 省 手 艺 影 像 志</p>
+    <div class="intro-provs">
+      <span>陕西</span><i></i><span>甘肃</span><i></i><span>宁夏</span><i></i><span>青海</span><i></i><span>新疆</span>
+    </div>
+    <div class="intro-load"><i></i></div>
+  </div>
+  <p class="intro-skip">点击任意处进入</p>
+</div>
 
 <a class="skip-link" href="#app">跳到主要内容</a>
 

@@ -348,7 +348,16 @@ function initHero(slides) {
   thumbs.forEach(el => el.addEventListener("click", () => { go(+el.dataset.i); start(); }));
   hero.addEventListener("mouseenter", () => { paused = true; if (timer) clearInterval(timer); if (prog) prog.style.animationPlayState = "paused"; });
   hero.addEventListener("mouseleave", () => { paused = false; go(idx); start(); });
-  go(0); start();
+  go(0);
+  /* 有开场动效时，等幕门拉开后再开始自动轮播，避免第一屏被开场吃掉 */
+  if (document.getElementById("intro")) {
+    document.addEventListener("intro:done", () => {
+      if (!hero.isConnected) return;
+      go(0); start();
+    }, { once: true });
+  } else {
+    start();
+  }
   return () => { if (timer) clearInterval(timer); };
 }
 
@@ -1160,3 +1169,41 @@ function observeReveals() {
 
 window.addEventListener("hashchange", render);
 render();
+
+/* =========================================================
+   开场动效：印章 → 标题 → 五省 → 幕门拉开
+   ========================================================= */
+(function initIntro(){
+  const intro = document.getElementById("intro");
+  if (!intro) return;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) {
+    intro.remove();
+    document.dispatchEvent(new Event("intro:done"));
+    return;
+  }
+
+  document.body.classList.add("intro-lock");
+  let done = false;
+  let timer = null;
+
+  function finish() {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    intro.classList.add("is-out");
+    setTimeout(() => {
+      intro.remove();
+      document.body.classList.remove("intro-lock");
+      document.dispatchEvent(new Event("intro:done"));
+    }, 1450);
+  }
+
+  timer = setTimeout(finish, 3000);
+  intro.addEventListener("click", finish);
+  intro.addEventListener("wheel", finish, { passive: true });
+  intro.addEventListener("touchstart", finish, { passive: true });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") finish();
+  });
+})();
