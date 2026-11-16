@@ -10,7 +10,9 @@ window.APP_CONFIG = {
      "tencent"    = 腾讯（WorkBuddy 预览环境自动走代理，零 Key） */
   MAP_PROVIDER: "amap-tiles",
 
-  /* 高德开放平台 Key —— 占位符，请替换为你自己申请的 Key。
+  /* 默认 MAP_PROVIDER = "amap-tiles"，走免 Key 的高德栅格瓦片，以下两项无需填写；
+     仅当切换为 "amap" 或 "tencent" 时，才需要申请并替换下面的占位符。
+     高德开放平台 Key —— 占位符，请替换为你自己申请的 Key。
      申请入口：https://console.amap.com/dev/key/app
      步骤：注册/登录高德开放平台 → 应用管理 → 创建新应用 → 添加 Key →
            服务平台选「Web端(JS API)」→ 提交后得到 Key 与安全密钥(securityJsCode)。

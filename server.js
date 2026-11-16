@@ -61,7 +61,7 @@ function demoStream(res, messages) {
   const text =
 `（演示回答：后端尚未配置 DEEPSEEK_API_KEY）
 
-你问的是「${String(last).slice(0, 40)}」。配置真实 Key 后，我会结合站内 43 项非遗资料作答。
+你问的是「${String(last).slice(0, 40)}」。配置真实 Key 后，我会结合站内 67 项非遗资料作答。
 
 当前可以这样启用：
 1) 在项目根目录新建 .env 文件；

@@ -1,4 +1,4 @@
-/* 陕西非遗 · 数据层
+/* 西北非遗 · 五省手艺影像志 · 数据层
  * 字段：id, name, city, cityId, level, category, summary, cover, history, feature, inheritor, fact
  * cover 为空时由 app.js 生成本地 SVG 占位封面（不依赖外网）
  * ⚠️ 说明：以下正文为示例文案（已尽量避免杜撰具体人名），正式上线前请替换为经核实的史料与实拍图

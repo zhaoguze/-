@@ -1,8 +1,9 @@
 /* 影像资料清单
    - bvid：哔哩哔哩视频号（用于 iframe 兜底播放）
-   - file：本地下载后的视频文件（位于 assets/video/）。
+   - file：本地视频文件（位于 assets/video/）。
            若本地文件存在则优先播放本地文件；不存在时自动回退到 B 站 iframe。
-   注意：本地文件已随项目提交；若某个文件缺失，保留 bvid 即可继续通过 B 站在线播放。 */
+   注意：*.mp4 未纳入 Git（单文件超 100MB，见 .gitignore 与 assets/video/README.md），
+         影像随作品压缩包提交；克隆仓库后文件缺失属于预期行为，保留 bvid 即可在线播放。 */
 window.VIDEO_LIST = [
   {
     "topic": "安塞腰鼓",
